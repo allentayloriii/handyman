@@ -1,7 +1,7 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import AppText from '../components/AppText'
+import { Image, StyleSheet, View } from 'react-native';
+import AppText from '../components/AppText';
 import ListItem from '../components/ListItem';
-import colors from '../utils/color'
+import colors from '../utils/color';
 
 const { secondary } = colors;
 

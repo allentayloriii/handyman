@@ -1,5 +1,5 @@
 import { Image, ImageBackground, StyleSheet, View, Text } from 'react-native';
-import PressableButton from '../components/PressableButton';
+import AppButton from '../components/AppButton';
 import colors from '../utils/color';
 
 export default function WelcomeScreen() {
@@ -18,8 +18,8 @@ export default function WelcomeScreen() {
           <Text style={styles.tagline}>Sell What You Dont Need</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <PressableButton color={primary} text='login' />
-          <PressableButton color={secondary} text='register' />
+          <AppButton color={primary} text='login' />
+          <AppButton color={secondary} text='register' />
         </View>
       </ImageBackground>
   );

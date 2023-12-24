@@ -3,7 +3,7 @@ import colors from '../utils/color'
 
 const { primary, white } = colors;
 
-const PressableButton = ({text, onPress, color = primary}) => {
+const AppButton = ({text, onPress, color = primary}) => {
   return ( 
     <Pressable 
       style={({pressed}) => [
@@ -20,7 +20,7 @@ const PressableButton = ({text, onPress, color = primary}) => {
   )
 }
 
-export default PressableButton
+export default AppButton
 
 const styles = StyleSheet.create({
   container: {

@@ -1,11 +1,10 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { FlatList, Modal, Pressable, StyleSheet, View } from 'react-native'
-import colors from '../utils/color'
-import AppText from './AppText'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { Button } from 'react-native';
-import Screen from './Screen';
+import { Button, FlatList, Modal, Pressable, StyleSheet, View } from 'react-native';
+import colors from '../utils/color';
+import AppText from './AppText';
 import PickerItem from './PickerItem';
+import Screen from './Screen';
 
 const { light, medium } = colors;
 
@@ -25,12 +24,15 @@ const AppPicker = ({ icon, items, onSelectItem, placeholder, selectedItem }) => 
               color={medium}
             />
           }
-          <AppText style={styles.text}>{selectedItem ? selectedItem.label : placeholder}</AppText>
+          { selectedItem? 
+            <AppText style={styles.text}>{selectedItem.label}</AppText> : 
+            <AppText style={styles.placeholder}>{placeholder}</AppText>
+          }
           <MaterialCommunityIcons
-              name='chevron-down'
-              size={20}
-              color={medium}
-            />
+            name='chevron-down'
+            size={20}
+            color={medium}
+          />
         </View>
       </Pressable>
       <Modal visible={modalVisible} animationType='slide'>
@@ -68,6 +70,10 @@ const styles = StyleSheet.create({
   },  
   icon: {
     marginRight: 10
+  },
+  placeholder: {
+    color: medium,
+    flex: 1
   },
   text: {
     flex: 1

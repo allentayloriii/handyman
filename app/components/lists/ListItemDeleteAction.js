@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, View } from 'react-native';
-import colors from '../utils/color';
+import colors from '../../utils/color';
 
 const { danger, white } = colors;
 const ListItemDeleteAction = ({ onPress }) => {

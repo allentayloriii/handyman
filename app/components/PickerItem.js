@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet } from 'react-native'
 import AppText from './AppText'
 
-const PickerItem = ({ label, onPress }) => {
+const PickerItem = ({ item, onPress }) => {
   return (
     <Pressable
       onPress={onPress}
     >
-      <AppText style={styles.text}>{label}</AppText>
+      <AppText style={styles.text}>{item.label}</AppText>
     </Pressable>
   )
 }

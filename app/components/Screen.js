@@ -4,10 +4,10 @@ import { SafeAreaView, StyleSheet, View, Platform } from 'react-native'
 const Screen = ({children, style}) => {
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      {/* Implementation of external padding style to screen is platform dependent */}
+      {/* Need to implement an external padding two different ways depending on platform */}
       {(Platform.OS === 'android') ? 
         children :
-        <View style={[{flex: 1}, style]}>
+        <View style={[styles.view, style]}>
           {children}
         </View>
       }
@@ -22,4 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight
   },
+  view: {
+    flex: 1
+  }
 })

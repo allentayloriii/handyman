@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native'
 import React from 'react'
-import colors from '../utils/color'
+import colors from '../../utils/color'
 
 const { light } = colors;
 const ListItemSeparator = () => {

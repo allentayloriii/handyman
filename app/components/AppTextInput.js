@@ -5,9 +5,9 @@ import defaultStyles from '../utils/styles';
 
 const { light, medium, dark } = colors;
 
-const AppTextInput = ({ icon, ...otherProps }) => {
+const AppTextInput = ({ icon, width = '100%', ...otherProps }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {width: width}]}>
       {icon && 
         <MaterialCommunityIcons
           style={styles.icon}
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     backgroundColor: light,
     borderRadius: 25,
     flexDirection: 'row',
-    width: '100%',
     padding: 15,
     marginVertical: 10,
   },  

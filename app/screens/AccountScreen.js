@@ -1,9 +1,9 @@
 import { Image, StyleSheet, View, FlatList } from 'react-native'
 import AppText from '../components/AppText'
 import Screen from '../components/Screen'
-import ListItem from '../components/ListItem'
+import ListItem from '../components/lists/ListItem'
 import colors from '../utils/color'
-import ListItemSeparator from '../components/ListItemSeparator'
+import ListItemSeparator from '../components/lists/ListItemSeparator'
 import Icon from '../components/Icon'
 
 const { primary, secondary, light, medium, white } = colors;

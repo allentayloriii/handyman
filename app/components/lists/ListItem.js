@@ -1,7 +1,8 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import colors from '../utils/color';
-import AppText from './AppText';
+import colors from '../../utils/color';
+import AppText from '../AppText';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 const avatarDiameter = 70;
 const { medium, light, white } = colors;
@@ -19,9 +20,10 @@ const ListItem = ({title, subTitle, image, IconComponent, onPress, renderRightAc
             {IconComponent}
             {image && <Image style={styles.image} source={image} resizeMode={'stretch'}/>}
             <View style={styles.detailsContainer}>
-              <AppText style={styles.title}>{title}</AppText>
-              {subTitle && <AppText style={styles.subTitle}>{subTitle}</AppText>}
+              <AppText style={styles.title} numberOfLines={1}>{title}</AppText>
+              {subTitle && <AppText style={styles.subTitle} numberOfLines={2}>{subTitle}</AppText>}
             </View>
+            <MaterialCommunityIcons name="chevron-right" size={25} color={medium} />
           </View>
         </Pressable>
       </Swipeable>
@@ -33,11 +35,13 @@ export default ListItem
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 15
+    padding: 15,
+    alignItems: 'center'
   },
   detailsContainer: {
     marginLeft: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1
   },
   image: {
     width: avatarDiameter,

@@ -1,45 +1,44 @@
-import { Image, StyleSheet, View } from 'react-native';
-import colors from '../utils/color';
-import AppText from './AppText';
+import { Image, Pressable, StyleSheet, View } from "react-native";
+import colors from "../utils/color";
+import AppText from "./AppText";
 
 const { secondary, white } = colors;
 
-const Card = ({title, subTitle, image}) => {
+const Card = ({ title, subTitle, image, onPress }) => {
   return (
-    <View style={styles.card}>
-      <Image 
-        style={styles.image} 
-        source={image}
-      />
-      <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>{title}</AppText>
-        <AppText style={styles.subTitle}>{subTitle}</AppText>
+    <Pressable onPress={onPress}>
+      <View style={styles.card}>
+        <Image style={styles.image} source={image} />
+        <View style={styles.detailsContainer}>
+          <AppText style={styles.title}>{title}</AppText>
+          <AppText style={styles.subTitle}>{subTitle}</AppText>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
-}
+};
 
-export default Card
+export default Card;
 
 const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
-    backgroundColor: white, 
+    backgroundColor: white,
     marginBottom: 20,
-    overflow: 'hidden'
+    overflow: "hidden",
   },
   detailsContainer: {
-    padding: 20
+    padding: 20,
   },
   image: {
-    width: '100%',
-    height: 200
+    width: "100%",
+    height: 200,
   },
   subTitle: {
     color: secondary,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   title: {
-    marginBottom: 7
-  }
-})
+    marginBottom: 7,
+  },
+});

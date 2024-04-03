@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   logout: {
     position: "relative",
-    bottom: 350,
+    bottom: 300,
     marginTop: 30,
   },
   listContainer: {

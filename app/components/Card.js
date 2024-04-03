@@ -4,11 +4,11 @@ import AppText from "./AppText";
 
 const { secondary, white } = colors;
 
-const Card = ({ title, subTitle, image, onPress }) => {
+const Card = ({ title, subTitle, imageURL, onPress }) => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.card}>
-        <Image style={styles.image} source={image} />
+        <Image style={styles.image} source={{ uri: imageURL }} />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{title}</AppText>
           <AppText style={styles.subTitle}>{subTitle}</AppText>

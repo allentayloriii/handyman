@@ -3,19 +3,26 @@ import {
   Platform,
   StyleSheet,
 } from "react-native";
+import colors from "../utils/color";
 import ActivityIndicator from "./ActivityIndicator";
 
+const { white, primary } = colors;
 const AppActivityIndicator = ({ loading = false }) => {
   return (
     <>
-      {Platform.OS === "ios" ? (
-        <ActivityIndicator visible={loading} size="large" />
-      ) : (
+      {Platform.OS === "ios" && (
+        <ActivityIndicator
+          visible={loading}
+          style={styles.container}
+          size="large"
+        />
+      )}
+      {loading && Platform.OS === "android" && (
         <GoogleActivityIndicator
           animating={loading}
           size="large"
-          color="#FA8072"
-          style={{ top: "50%" }}
+          color={primary}
+          style={styles.container}
         />
       )}
     </>
@@ -25,5 +32,12 @@ const AppActivityIndicator = ({ loading = false }) => {
 export default AppActivityIndicator;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: white,
+    height: "100%",
+    opacity: 0.8,
+    position: "absolute",
+    width: "100%",
+    zIndex: 1,
+  },
 });

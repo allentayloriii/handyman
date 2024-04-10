@@ -2,12 +2,21 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Button, Text } from "react-native";
+import "core-js/stable/atob";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback, useEffect, useState } from "react";
+import { Button, Text, View } from "react-native";
 import "react-native-gesture-handler";
+import AuthContext from "./app/auth/context";
+import authStorage from "./app/auth/storage";
+import OfflineNotice from "./app/components/OfflineNotice";
 import Screen from "./app/components/Screen";
 import AppNavigator from "./app/nagivation/AppNavigator";
+import AuthNavigator from "./app/nagivation/AuthNavigator";
 import navigationTheme from "./app/nagivation/navigationTheme";
-import OfflineNotice from "./app/components/OfflineNotice";
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 const Tweets = ({ navigation }) => (
   <Screen>
@@ -70,12 +79,41 @@ const TabNavigator = () => (
 );
 
 export default function App() {
+  const [user, setUser] = useState(null);
+  const [isReady, setIsReady] = useState(false);
+
+  const restoreUser = async () => {
+    const authUser = await authStorage.getUser();
+
+    if (authUser) {
+      setUser(authUser);
+    }
+
+    setIsReady(true);
+  };
+
+  useEffect(() => {
+    restoreUser();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
+
   return (
-    <>
-      <OfflineNotice />
-      <NavigationContainer theme={navigationTheme}>
-        <AppNavigator />
-      </NavigationContainer>
-    </>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <OfflineNotice />
+        <NavigationContainer theme={navigationTheme}>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </View>
   );
 }

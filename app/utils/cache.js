@@ -12,7 +12,7 @@ const store = async (key, value) => {
     };
     await AsyncStorage.setItem(prefix + key, JSON.stringify(item));
   } catch (error) {
-    console.log(error);
+    console.log(`Error occured while storing key: ${key}`, error);
   }
 };
 
@@ -30,7 +30,7 @@ const get = async (key) => {
 
     return item.value;
   } catch (error) {
-    console.log(error);
+    console.log(`Error while pulling value for ${key}`, error);
   }
 };
 

@@ -32,8 +32,7 @@ const RegisterScreen = () => {
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
-        setError("An unexpected error occurred.");
-        console.log(result);
+        setError("An unexpected error occurred while registering user.");
       }
       return;
     }

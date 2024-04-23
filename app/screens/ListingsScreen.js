@@ -7,7 +7,7 @@ import AppText from "../components/AppText";
 import Card from "../components/Card";
 import Screen from "../components/Screen";
 import useApi from "../hooks/useApi";
-import routes from "../nagivation/routes";
+import routes from "../navigation/routes";
 import colors from "../utils/color";
 
 const { light } = colors;

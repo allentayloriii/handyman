@@ -29,6 +29,9 @@
     "extra": {
       "eas": {
         "projectId": "f821a269-7585-4238-ad26-88d820075443"
+      },
+      "bugsnag": {
+        "apiKey": "c36c5f3645e4dda5a32fb64626ecc15e"
       }
     },
     "runtimeVersion": {
@@ -37,7 +40,15 @@
     "updates": {
       "url": "https://u.expo.dev/f821a269-7585-4238-ad26-88d820075443"
     },
-    "sdkVersion": "49.0.0"
+    "sdkVersion": "49.0.0",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "@bugsnag/expo/hooks/post-publish.js",
+          "config": {}
+        }
+      ]
+    }
   },
   "name": "react-native-donewithit",
   "notification": {

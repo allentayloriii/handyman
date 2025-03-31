@@ -1,9 +1,10 @@
 import { create } from "apisauce";
 import cache from "../utils/cache";
 import authStorage from "../auth/storage";
+import settings from "../utils/settings";
 
 const apiClient = create({
-  baseURL: "http://10.0.0.25:9000/api",
+  baseURL: settings.apiUrl,
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {

@@ -9,6 +9,7 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import AuthContext from "./app/auth/context";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import authStorage from "./app/auth/storage";
+import logger from "./app/utils/logger";
 import navigationTheme from "./app/navigation/navigationTheme";
 import OfflineNotice from "./app/components/OfflineNotice";
 
@@ -22,6 +23,8 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+logger.start();
 
 export default function App() {
   const [user, setUser] = useState(null);

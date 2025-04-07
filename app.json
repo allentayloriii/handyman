@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "react-native-donewithit",
+    "slug": "react-native-donewithit",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#e63c4b"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./app/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f821a269-7585-4238-ad26-88d820075443"
+      },
+      "bugsnag": {
+        "apiKey": "c36c5f3645e4dda5a32fb64626ecc15e"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f821a269-7585-4238-ad26-88d820075443"
+    },
+    "sdkVersion": "49.0.0",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "@bugsnag/expo/hooks/post-publish.js",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "name": "react-native-donewithit",
+  "notification": {
+    "iosDisplayInForeground": true
+  }
+}

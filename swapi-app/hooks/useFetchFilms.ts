@@ -12,7 +12,7 @@ export function useFetchFilms() {
       // Fetch films from an API or database
       const response = await fetch("https://swapi.info/api/films");
       const data = await response.json();
-      console.log("Fetched films:", data.results);
+      console.log("Fetched films:", data);
       setFilms(data);
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -29,7 +29,6 @@ export function useFetchFilms() {
   
 
   useEffect(() => {
-    
     fetchFilms();
   }, []);
 

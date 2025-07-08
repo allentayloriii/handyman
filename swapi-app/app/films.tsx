@@ -1,8 +1,9 @@
+import FilmItem from "@/components/FilmItem";
+import ListEmptyComponent from "@/components/ListEmptyComponent";
 import { COLORS } from "@/constants/colors";
 import { useFetchFilms } from "@/hooks/useFetchFilms";
-import { Film } from "@/types/interfaces"; // Assuming you have a Film type defined
 import React from "react";
-import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,18 +13,14 @@ const styles = StyleSheet.create({
 });
 
 const Films = () => {
-  const { films, refreshing, onRefresh } = useFetchFilms();
-
-  const renderItem = ({ item }: { item: Film }) => (
-    <Text style={{ color: "white" }}>{item.title}</Text>
-  );
+  const { films, loading, refreshing, onRefresh } = useFetchFilms();
 
   return (
     <View style={styles.container}>
       <FlatList
         data={films}
         keyExtractor={(item) => item.episode_id.toString()}
-        renderItem={renderItem}
+        renderItem={({ item }) => <FilmItem item={item} />}
         // RefreshControl is used to pull to refresh the list
         refreshControl={
           <RefreshControl
@@ -32,11 +29,7 @@ const Films = () => {
             tintColor={COLORS.text}
           />
         }
-        ListEmptyComponent={
-          <Text style={{ color: "white", textAlign: "center", marginTop: 20 }}>
-            No films available
-          </Text>
-        }
+        ListEmptyComponent={<ListEmptyComponent loading={loading} />}
       />
     </View>
   );

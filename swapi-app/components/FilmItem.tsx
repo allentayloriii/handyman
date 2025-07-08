@@ -5,8 +5,19 @@ import { StyleSheet, Text, View } from "react-native";
 
 const FilmItem = ({ item }: { item: Film }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.filmItem}>{item.title}</Text>
+    <View style={styles.filmItem}>
+      <Text style={styles.filmTitle}>{item.title}</Text>
+      <View>
+        <Text
+          style={styles.filmDetailText}
+        >{`Episode: ${item.episode_id}`}</Text>
+        <Text
+          style={styles.filmDetailText}
+        >{`Director: ${item.director}`}</Text>
+        <Text
+          style={styles.filmDetailText}
+        >{`Release Date: ${item.release_date}`}</Text>
+      </View>
     </View>
   );
 };
@@ -14,10 +25,23 @@ const FilmItem = ({ item }: { item: Film }) => {
 export default FilmItem;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.background,
-  },
   filmItem: {
+    backgroundColor: COLORS.background,
+    padding: 16,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 8,
+  },
+  filmTitle: {
     color: COLORS.text,
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  filmDetails: {
+    // You can add View-specific styles here if needed
+  },
+  filmDetailText: {
+    fontSize: 14,
+    color: "white",
   },
 });

@@ -9,6 +9,7 @@ const Layout = () => {
         headerStyle: { backgroundColor: COLORS.background },
         headerTintColor: COLORS.text,
         headerTitleStyle: { fontWeight: "bold" },
+        contentStyle: { backgroundColor: COLORS.containerBackground },
       }}
     >
       <Stack.Screen name="index" options={{ title: "All Films" }} />

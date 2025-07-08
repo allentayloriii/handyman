@@ -1,16 +1,65 @@
+import { COLORS } from "@/constants/colors";
+import useFetchFilm from "@/hooks/useFetchFilm";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 const Page = () => {
+  const { id } = useLocalSearchParams();
+  const { loading, film } = useFetchFilm(Number(id));
+
+  if (loading) {
+    return (
+      <View>
+        <Text style={styles.text}>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (!film) {
+    return (
+      <View>
+        <Text style={styles.text}>Film not found</Text>
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Details Page</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>{film.title}</Text>
+      <Text style={styles.details}>Episode: {film.episode_id}</Text>
+      <Text style={styles.details}>Director: {film.director}</Text>
+      <Text style={styles.details}>Producer: {film.producer}</Text>
+      <Text style={styles.details}>Release Date: {film.release_date}</Text>
+      <Text style={styles.crawl}>Opening Crawl: {film.opening_crawl}</Text>
+    </ScrollView>
   );
 };
 
 export default Page;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    padding: 16,
+  },
+  text: { color: "white" },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  details: {
+    marginBottom: 8,
+    fontSize: 16,
+    color: COLORS.text,
+  },
+  crawl: {
+    fontSize: 16,
+    marginTop: 16,
+    fontStyle: "italic",
+    color: COLORS.text,
+  },
 });

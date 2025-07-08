@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Films = () => {
+const Layout = () => {
   const { films, loading, refreshing, onRefresh } = useFetchFilms();
 
   return (
@@ -35,4 +35,4 @@ const Films = () => {
   );
 };
 
-export default Films;
+export default Layout;

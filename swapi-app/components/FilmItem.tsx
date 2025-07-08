@@ -1,13 +1,16 @@
 import { COLORS } from "@/constants/colors";
 import { Film } from "@/types/interfaces"; // Assuming you have a Film type defined
+import { Link } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 const FilmItem = ({ item }: { item: Film }) => {
+  const id = item.url.split("/").filter(Boolean).pop(); // Extracting ID from URL
+
   return (
-    <View style={styles.filmItem}>
-      <Text style={styles.filmTitle}>{item.title}</Text>
-      <View>
+    <Link href={`/films/${id}`} asChild>
+      <TouchableOpacity style={styles.filmItem}>
+        <Text style={styles.filmTitle}>{item.title}</Text>
         <Text
           style={styles.filmDetailText}
         >{`Episode: ${item.episode_id}`}</Text>
@@ -17,8 +20,8 @@ const FilmItem = ({ item }: { item: Film }) => {
         <Text
           style={styles.filmDetailText}
         >{`Release Date: ${item.release_date}`}</Text>
-      </View>
-    </View>
+      </TouchableOpacity>
+    </Link>
   );
 };
 

@@ -5,13 +5,6 @@ import { useFetchFilms } from "@/hooks/useFetchFilms";
 import React from "react";
 import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.containerBackground,
-  },
-});
-
 const Layout = () => {
   const { films, loading, refreshing, onRefresh } = useFetchFilms();
 
@@ -21,7 +14,6 @@ const Layout = () => {
         data={films}
         keyExtractor={(item) => item.episode_id.toString()}
         renderItem={({ item }) => <FilmItem item={item} />}
-        // RefreshControl is used to pull to refresh the list
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
@@ -36,3 +28,10 @@ const Layout = () => {
 };
 
 export default Layout;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.containerBackground,
+  },
+});

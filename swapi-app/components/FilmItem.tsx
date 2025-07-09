@@ -40,9 +40,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
   },
-  filmDetails: {
-    // You can add View-specific styles here if needed
-  },
   filmDetailText: {
     fontSize: 14,
     color: "white",

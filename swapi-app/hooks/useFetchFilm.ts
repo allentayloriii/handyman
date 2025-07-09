@@ -7,20 +7,21 @@ export default function useFetchFilm(id: number) {
 
   useEffect(() => {
     const fetchFilm = async () => {
-    setLoading(true);
-    try {
-      // Fetch films from an API or database
-      const response = await fetch(`https://swapi.info/api/films/${id}`);
-      const data = await response.json();
-      setFilm(data);
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    } finally {
-      setLoading(false);
-    }  };
+      setLoading(true);
+      try {
+        // Fetch films from an API or database
+        const response = await fetch(`https://swapi.info/api/films/${id}`);
+        const data = await response.json();
+        setFilm(data);
+      } catch (error) {
+        console.error(`Error fetching film ID ${id}: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchFilm();
-  }, [id])
+  }, [id]);
 
-  return {loading, film}
+  return { loading, film };
 }

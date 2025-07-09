@@ -33,6 +33,7 @@ export default function RootLayout() {
         name="people"
         options={{
           title: "All People",
+          headerShown: false,
           tabBarLabel: "Characters",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-outline" color={color} size={size} />

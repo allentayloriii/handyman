@@ -1,5 +1,5 @@
-import { Film } from '@/types/interfaces';
-import { useEffect, useState } from 'react';
+import { Film } from "@/types/interfaces";
+import { useEffect, useState } from "react";
 
 export function useFetchFilms() {
   const [films, setFilms] = useState<Film[]>([]);
@@ -24,12 +24,11 @@ export function useFetchFilms() {
   const onRefresh = () => {
     setRefreshing(true);
     fetchFilms();
-  }
-  
+  };
 
   useEffect(() => {
     fetchFilms();
   }, []);
 
-  return {films, refreshing, loading, onRefresh};
+  return { films, refreshing, loading, onRefresh };
 }

@@ -12,8 +12,8 @@ const Layout = () => {
         contentStyle: { backgroundColor: COLORS.containerBackground },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "All Films" }} />
-      <Stack.Screen name="[id]" options={{ title: "Details" }} />
+      <Stack.Screen name="index" options={{ title: "All Characters" }} />
+      <Stack.Screen name="[id]" options={{ title: "Bio" }} />
     </Stack>
   );
 };

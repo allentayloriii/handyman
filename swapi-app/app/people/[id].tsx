@@ -1,7 +1,13 @@
 import { COLORS } from "@/constants/colors";
 import useFetchCharacter from "@/hooks/useFetchCharacter";
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const DetailsPage = () => {
   const { id } = useLocalSearchParams();
@@ -9,8 +15,8 @@ const DetailsPage = () => {
 
   if (loading) {
     return (
-      <View>
-        <Text style={styles.text}>Loading...</Text>
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={COLORS.text} animating={true} />
       </View>
     );
   }
@@ -55,5 +61,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
     color: COLORS.text,
+  },
+  loading: {
+    marginTop: 16,
   },
 });

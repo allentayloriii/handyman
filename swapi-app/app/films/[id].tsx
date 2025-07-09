@@ -7,6 +7,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
@@ -40,8 +41,8 @@ const Page = () => {
 
   if (loading) {
     return (
-      <View>
-        <Text style={styles.text}>Loading...</Text>
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={COLORS.text} animating={true} />
       </View>
     );
   }
@@ -104,5 +105,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontStyle: "italic",
     color: COLORS.text,
+  },
+  loading: {
+    marginTop: 16,
   },
 });

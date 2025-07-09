@@ -3,27 +3,25 @@ import ListEmptyComponent from "@/components/ListEmptyComponent";
 import { COLORS } from "@/constants/colors";
 import { useFetchCharacters } from "@/hooks/useFetchCharacters";
 import React from "react";
-import { FlatList, RefreshControl, ScrollView, StyleSheet } from "react-native";
+import { FlatList, RefreshControl, StyleSheet } from "react-native";
 
 const Characters = () => {
   const { characters, loading, refreshing, onRefresh } = useFetchCharacters();
 
   return (
-    <ScrollView style={styles.container}>
-      <FlatList
-        data={characters}
-        keyExtractor={(item) => item.url.split("/").filter(Boolean).pop() || ""}
-        renderItem={({ item }) => <CharacterItem item={item} />}
-        refreshControl={
-          <RefreshControl
-            onRefresh={onRefresh}
-            refreshing={refreshing}
-            tintColor={COLORS.text}
-          />
-        }
-        ListEmptyComponent={<ListEmptyComponent loading={loading} />}
-      />
-    </ScrollView>
+    <FlatList
+      data={characters}
+      keyExtractor={(item) => item.url.split("/").filter(Boolean).pop() || ""}
+      renderItem={({ item }) => <CharacterItem item={item} />}
+      refreshControl={
+        <RefreshControl
+          onRefresh={onRefresh}
+          refreshing={refreshing}
+          tintColor={COLORS.text}
+        />
+      }
+      ListEmptyComponent={<ListEmptyComponent loading={loading} />}
+    />
   );
 };
 

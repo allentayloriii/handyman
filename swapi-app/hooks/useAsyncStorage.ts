@@ -53,7 +53,7 @@ const useAsyncStorage = <T>(key: string) => {
     getData();
   }, [getData]);
 
-  return { value, setData, removeData, error, clear };
+  return { value, setData, removeData, error, clear, getData };
 };
 
 export default useAsyncStorage;

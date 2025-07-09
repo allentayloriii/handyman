@@ -1,12 +1,42 @@
 import { COLORS } from "@/constants/colors";
+import useCheckFavoriteStatus from "@/hooks/useCheckFavoriteStatus";
+import { useFavoriteFilms } from "@/hooks/useFavoriteFilmsStorage";
 import useFetchFilm from "@/hooks/useFetchFilm";
-import { useLocalSearchParams } from "expo-router";
+import { Film } from "@/types/interfaces";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Stack, useLocalSearchParams } from "expo-router";
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const { loading, film } = useFetchFilm(Number(id));
+  const { isFavorite, setIsFavorite } = useCheckFavoriteStatus(film);
+
+  const [favorites, setFavorites] = useFavoriteFilms();
+
+  const toggleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await setFavorites(
+          (favorites || []).filter(
+            (f: Film) => f.episode_id !== film?.episode_id
+          )
+        );
+      } else {
+        await setFavorites([...(favorites || []), film as Film]);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.log(`Error toggling favorite ${film?.title}: ${error}`);
+    }
+  };
 
   if (loading) {
     return (
@@ -26,6 +56,19 @@ const Page = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <TouchableOpacity onPress={toggleFavorite}>
+              <Ionicons
+                name={isFavorite ? "star" : "star-outline"}
+                size={24}
+                color={COLORS.text}
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <Text style={styles.title}>{film.title}</Text>
       <Text style={styles.details}>Episode: {film.episode_id}</Text>
       <Text style={styles.details}>Director: {film.director}</Text>

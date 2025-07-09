@@ -10,6 +10,7 @@ const Characters = () => {
 
   return (
     <FlatList
+      style={styles.container}
       data={characters}
       keyExtractor={(item) => item.url.split("/").filter(Boolean).pop() || ""}
       renderItem={({ item }) => <CharacterItem item={item} />}

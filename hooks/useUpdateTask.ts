@@ -9,7 +9,7 @@ export default function useUpdateTask() {
 
   type UpdateTaskProps = Omit<Task, "id" | "locationId"> & { taskId: unknown };
 
-  return useCallback(
+  const updateTask =  useCallback(
     async ({
       title,
       description,
@@ -30,9 +30,9 @@ export default function useUpdateTask() {
       } finally {
         setLoading(false);
       }
-
-      return { loading, error };
     },
-    [db, error, loading]
+    [db]
   );
+  
+  return { loading, error, updateTask };
 }

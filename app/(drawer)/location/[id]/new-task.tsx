@@ -1,4 +1,5 @@
 import useAddTask from "@/hooks/useAddTask";
+import useDeleteTaskById from "@/hooks/useDeleteTaskById";
 import useSelectTaskById from "@/hooks/useSelectTaskById";
 import useUpdateTask from "@/hooks/useUpdateTask";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -16,8 +17,9 @@ import {
 const Page = () => {
   const { id: locationId, taskId } = useLocalSearchParams();
   const { task } = useSelectTaskById(taskId);
-  const addTask = useAddTask();
-  const updateTask = useUpdateTask();
+  const { updateTask } = useUpdateTask();
+  const { addTask, lastInsertRowId } = useAddTask();
+  const { deleteTask } = useDeleteTaskById();
 
   const router = useRouter();
 
@@ -49,7 +51,7 @@ const Page = () => {
       });
     } else {
       // Create new task
-      const { lastInsertRowId } = await addTask({
+      await addTask({
         locationId: Number(locationId),
         title,
         description,
@@ -78,8 +80,12 @@ const Page = () => {
         },
         {
           text: "Finish",
-          onPress: async () => {},
-          style: "destructive",
+          onPress: async () => {
+            if (taskId) {
+              await deleteTask(taskId);
+              router.back();
+            }
+          },
         },
       ]
     );

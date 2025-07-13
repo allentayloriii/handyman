@@ -40,7 +40,9 @@ const Page = () => {
       <FlatList
         data={tasks}
         renderItem={({ item }) => <TaskListItem task={item} />}
-        ListEmptyComponent={<Text>No tasks found</Text>}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>No tasks found</Text>
+        }
         keyExtractor={(item) => item.id.toString()}
       />
       <Link href={`/location/${id}/new-task`} asChild>
@@ -84,5 +86,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 24,
     fontWeight: "bold",
+  },
+  emptyText: {
+    textAlign: "center",
+    marginTop: 20,
+    color: "#666",
+    fontSize: 16,
   },
 });

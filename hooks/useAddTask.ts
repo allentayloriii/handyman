@@ -8,7 +8,7 @@ export default function useAddTask() {
   const [error, setError] = useState<Error | null>(null);
   const [lastInsertRowId, setLastInsertRowId] = useState<number | null>(null)
 
-  return useCallback(
+  const addTask = useCallback(
     async ({ locationId, title, description, isUrgent, imageUri }: Omit<Task, "id">) => {
       try {
         setLoading(true);
@@ -24,9 +24,9 @@ export default function useAddTask() {
       } finally {
         setLoading(false);
       }
-
-      return { loading, error, lastInsertRowId };
     },
-    [db, error, lastInsertRowId, loading]
+    [db]
   );
+
+  return { loading, error, lastInsertRowId, addTask };
 }

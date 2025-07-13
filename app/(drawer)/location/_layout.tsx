@@ -1,9 +1,23 @@
-import { Slot } from "expo-router";
+import { DrawerToggleButton } from "@react-navigation/drawer";
+import { Stack } from "expo-router";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 const Layout = () => {
-  return <Slot />;
+  return (
+    <Stack>
+      <Stack.Screen
+        name="[id]"
+        options={{
+          headerLeft: () => (
+            <View style={{ marginLeft: -30 }}>
+              <DrawerToggleButton tintColor="black" />
+            </View>
+          ),
+        }}
+      ></Stack.Screen>
+    </Stack>
+  );
 };
 
 export default Layout;

@@ -6,6 +6,7 @@ import {
   DrawerItemList,
   useDrawerStatus,
 } from "@react-navigation/drawer";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import { router, usePathname } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import * as SQLite from "expo-sqlite";
@@ -14,7 +15,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-// const db = SQLite.openDatabaseSync("reports.db");
+const db = SQLite.openDatabaseSync("reports.db");
 
 const CustomDrawerContent = (props: any) => {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -77,7 +78,7 @@ const CustomDrawerContent = (props: any) => {
 };
 
 const Layout = () => {
-  // useDrizzleStudio(db);
+  useDrizzleStudio(db);
   return (
     <GestureHandlerRootView>
       <Drawer
@@ -92,6 +93,7 @@ const Layout = () => {
         <Drawer.Screen
           name="location"
           options={{
+            headerShown: false,
             title: "Location",
             drawerItemStyle: {
               display: "none",

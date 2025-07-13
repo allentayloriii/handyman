@@ -1,13 +1,51 @@
-import { useLocalSearchParams } from "expo-router";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Location, Task } from "@/types/interfaces";
+import { Stack, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+import React, { useCallback, useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
+  const db = useSQLiteContext();
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [locationName, setLocationName] = useState<string>("");
+
+  const loadLocationData = useCallback(async () => {
+    const [location] = await db.getAllAsync<Location>(
+      "SELECT * FROM locations WHERE id = ?",
+      [Number(id)]
+    );
+    if (location) {
+      setLocationName(location.name);
+    }
+
+    // Load tasks for the location
+    const locationTasks = await db.getAllAsync<Task>(
+      "SELECT * FROM tasks WHERE locationId = ?",
+      [Number(id)]
+    );
+    setTasks(locationTasks);
+    console.log(`Tasks for location ${id}:`, JSON.stringify(locationTasks));
+  }, [db, id]);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadLocationData();
+    }, [loadLocationData])
+  );
 
   return (
     <View style={styles.container}>
-      <Text>Location Details for {id}</Text>
+      <Stack.Screen options={{ title: locationName || "Tasks" }} />
+      <FlatList
+        data={tasks}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.title}</Text>
+          </View>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 };

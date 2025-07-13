@@ -46,7 +46,7 @@ const CustomDrawerContent = (props: any) => {
               <DrawerItem
                 key={location.id}
                 label={location.name}
-                onPress={() => router.push(`/location/${location.id}`)}
+                onPress={() => router.navigate(`/location/${location.id}`)}
                 focused={isActive}
                 activeTintColor="orange"
                 inactiveTintColor="black"

@@ -10,12 +10,20 @@ const Layout = () => {
         name="[id]"
         options={{
           headerLeft: () => (
-            <View style={{ marginLeft: -30 }}>
+            <View style={{ marginLeft: -16 }}>
               <DrawerToggleButton tintColor="black" />
             </View>
           ),
         }}
-      ></Stack.Screen>
+      />
+      <Stack.Screen
+        name="[id]/new-task"
+        options={{
+          title: "New Task",
+          headerBackTitle: "Back",
+          headerTintColor: "black",
+        }}
+      />
     </Stack>
   );
 };

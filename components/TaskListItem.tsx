@@ -16,7 +16,7 @@ const TaskListItem = ({ task }: TaskListItemProps) => {
       <TouchableOpacity>
         <View style={styles.container}>
           <View style={styles.iconContainer}>
-            <Text style={{ fontSize: 24 }}>{task.isUrgent ? "⚠︎" : "○"}</Text>
+            <Text style={{ fontSize: 30 }}>{task.isUrgent ? "⚠︎" : "○"}</Text>
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.title}>{task.title}</Text>

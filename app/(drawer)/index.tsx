@@ -22,6 +22,7 @@ const Page = () => {
     <View style={styles.container}>
       <LocationForm onSubmit={handleLocationSubmit} />
       <FlatList
+        style={styles.list}
         data={locations}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
@@ -40,6 +41,9 @@ export default Page;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  list: {
+    padding: 16,
   },
   emptyText: {
     fontSize: 16,

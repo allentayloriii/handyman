@@ -1,4 +1,5 @@
-import { Location, Task } from "@/types/interfaces";
+import useSelectLocationById from "@/hooks/useSelectLocationById";
+import { Task } from "@/types/interfaces";
 import { Stack, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import React, { useCallback, useState } from "react";
@@ -10,11 +11,11 @@ const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [locationName, setLocationName] = useState<string>("");
 
+  const {
+    locations: [location],
+  } = useSelectLocationById(id);
+
   const loadLocationData = useCallback(async () => {
-    const [location] = await db.getAllAsync<Location>(
-      "SELECT * FROM locations WHERE id = ?",
-      [Number(id)]
-    );
     if (location) {
       setLocationName(location.name);
     }
@@ -26,7 +27,7 @@ const Page = () => {
     );
     setTasks(locationTasks);
     console.log(`Tasks for location ${id}:`, JSON.stringify(locationTasks));
-  }, [db, id]);
+  }, [db, id, location]);
 
   useFocusEffect(
     useCallback(() => {

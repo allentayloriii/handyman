@@ -1,40 +1,31 @@
 import LocationForm from "@/components/LocationForm";
 import LocationListItem from "@/components/LocationListItem";
-import { Location } from "@/types/interfaces";
-import { useSQLiteContext } from "expo-sqlite";
-import React, { useCallback, useEffect, useState } from "react";
+import useAddLocation from "@/hooks/useAddLocation";
+import useSelectLocations from "@/hooks/useSelectLocations";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 const Page = () => {
-  const db = useSQLiteContext();
-  const [locations, setLocations] = useState<Location[]>([]);
+  const { locations, fetchLocations } = useSelectLocations();
+  const addLocation = useAddLocation();
 
-  const loadLocations = useCallback(async () => {
-    const dbLocations = await db.getAllAsync("SELECT * FROM locations");
-    setLocations(dbLocations as Location[]);
-    console.log(`Locations: ${JSON.stringify(dbLocations)}`);
-  }, [db]);
-
-  const addLocation = useCallback(
-    async (name: string) => {
-      await db.runAsync("INSERT INTO locations (name) VALUES (?)", name);
-      loadLocations();
-    },
-    [db, loadLocations]
-  );
+  const handleLocationSubmit = async (name: string) => {
+    await addLocation(name);
+    fetchLocations();
+  };
 
   useEffect(() => {
-    loadLocations();
-  }, [loadLocations]);
+    fetchLocations();
+  }, [fetchLocations]);
 
   return (
     <View style={styles.container}>
-      <LocationForm onSubmit={addLocation} />
+      <LocationForm onSubmit={handleLocationSubmit} />
       <FlatList
         data={locations}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <LocationListItem location={item} onDelete={loadLocations} />
+          <LocationListItem location={item} onDelete={fetchLocations} />
         )}
         ListEmptyComponent={() => (
           <Text style={styles.emptyText}>No locations found</Text>

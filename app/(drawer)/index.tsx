@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    padding: 16,
+    padding: 8,
   },
   emptyText: {
     fontSize: 16,

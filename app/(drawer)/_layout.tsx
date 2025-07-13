@@ -1,5 +1,5 @@
 import Logo from "@/assets/images/logo.png";
-import { Location } from "@/types/interfaces";
+import useSelectLocations from "@/hooks/useSelectLocations";
 import {
   DrawerContentScrollView,
   DrawerItem,
@@ -10,7 +10,7 @@ import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import { router, usePathname } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import * as SQLite from "expo-sqlite";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -18,27 +18,20 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const db = SQLite.openDatabaseSync("reports.db");
 
 const CustomDrawerContent = (props: any) => {
-  const [locations, setLocations] = useState<Location[]>([]);
-  const db = SQLite.useSQLiteContext();
+  const { bottom } = useSafeAreaInsets();
+  const { locations, fetchLocations } = useSelectLocations();
+
   const drawerStatus = useDrawerStatus();
   const pathName = usePathname();
-  const { bottom } = useSafeAreaInsets();
 
   const isDrawerOpen = useMemo(() => drawerStatus === "open", [drawerStatus]);
-
   const LOGO_IMAGE = Image.resolveAssetSource(Logo).uri;
-
-  const loadLocations = useCallback(async () => {
-    const dbLocations = await db.getAllAsync("SELECT * FROM locations");
-    setLocations(dbLocations as Location[]);
-    console.log(`Locations: ${JSON.stringify(dbLocations)}`);
-  }, [db]);
 
   useEffect(() => {
     if (isDrawerOpen) {
-      loadLocations();
+      fetchLocations();
     }
-  }, [isDrawerOpen, loadLocations]);
+  }, [fetchLocations, isDrawerOpen]);
 
   return (
     <View style={{ flex: 1 }}>

@@ -2,10 +2,12 @@ import useAddTask from "@/hooks/useAddTask";
 import useDeleteTaskById from "@/hooks/useDeleteTaskById";
 import useSelectTaskById from "@/hooks/useSelectTaskById";
 import useUpdateTask from "@/hooks/useUpdateTask";
+import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Alert,
+  Image,
   StyleSheet,
   Switch,
   Text,
@@ -91,11 +93,25 @@ const Page = () => {
     );
   };
 
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled && result.assets?.length > 0) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
   useEffect(() => {
     if (taskId) {
       loadTaskData();
     }
   }, [loadTaskData, taskId]);
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -121,6 +137,17 @@ const Page = () => {
           trackColor={{ false: "grey", true: "#F2A310" }}
         />
       </View>
+      <TouchableOpacity
+        onPress={pickImage}
+        style={[styles.button, styles.imageButton]}
+      >
+        <Text style={styles.buttonText}>
+          {imageUri ? "Change Image" : "Add an Image"}
+        </Text>
+      </TouchableOpacity>
+      {imageUri ? (
+        <Image source={{ uri: imageUri }} style={styles.image} />
+      ) : null}
       <TouchableOpacity onPress={handleSaveTask} style={styles.button}>
         <Text style={styles.buttonText}>
           {task ? "Update Task" : "Create Task"}
@@ -174,5 +201,14 @@ const styles = StyleSheet.create({
   },
   finishButton: {
     backgroundColor: "#28a745",
+  },
+  imageButton: {
+    backgroundColor: "#007bff",
+    padding: 16,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    marginBottom: 16,
   },
 });

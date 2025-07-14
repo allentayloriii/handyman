@@ -24,7 +24,7 @@ export default function useUpdateTask() {
           [title, description, isUrgent ? 1 : 0, imageUri, Number(taskId)]
         );
       } catch (error) {
-        const errMsg = `Error while adding new task: ${error}`;
+        const errMsg = `Error while updating task: ${error}`;
         console.log(errMsg);
         setError(new Error(errMsg));
       } finally {

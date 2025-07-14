@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontWeight: "semibold",
+    fontWeight: "600",
     color: "#333",
   },
   deleteButton: {

@@ -6,7 +6,7 @@ export default function useAddLocation() {
 
   return useCallback( async (name: string) => {
     try {
-      await db.runAsync("INSERT INTO locations (name) VALUES (?)", name);
+      await db.runAsync("INSERT INTO locations (name) VALUES (?)", [name]);
     } catch (error) {
       console.log(`Error while adding location ${name}: ${error}`)
     }

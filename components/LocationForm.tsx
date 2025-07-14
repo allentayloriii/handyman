@@ -25,7 +25,7 @@ const LocationForm = ({ onSubmit }: LocationFormProps) => {
     <View style={styles.container}>
       <TextInput style={styles.input} value={name} onChangeText={setName} />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.button}>Add Location</Text>
+        <Text style={styles.buttonText}>Add Location</Text>
       </TouchableOpacity>
     </View>
   );
@@ -38,9 +38,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "black",
     borderRadius: 5,
+    padding: 8,
+  },
+  buttonText: {
     color: "#fff",
     fontWeight: "bold",
-    padding: 8,
   },
   container: {
     flexDirection: "row",

@@ -15,6 +15,8 @@ export default function useDeleteTaskById() {
         const errMsg = `Error while trying to delete task with id ${id}: ${error}`;
         console.log(errMsg);
         setError(new Error(errMsg));
+      } finally {
+        setPending(false);
       }
     },
     [db]

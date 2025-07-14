@@ -46,13 +46,7 @@ const Page = () => {
         keyExtractor={(item) => item.id.toString()}
       />
       <Link href={`/location/${id}/new-task`} asChild>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => {
-            // Navigate to new task creation screen
-            // This could be a separate function or inline navigation logic
-          }}
-        >
+        <TouchableOpacity style={styles.addButton}>
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
       </Link>

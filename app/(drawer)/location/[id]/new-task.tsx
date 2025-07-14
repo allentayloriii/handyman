@@ -3,6 +3,7 @@ import useDeleteTaskById from "@/hooks/useDeleteTaskById";
 import useSelectTaskById from "@/hooks/useSelectTaskById";
 import useUpdateTask from "@/hooks/useUpdateTask";
 import * as ImagePicker from "expo-image-picker";
+import * as Notifications from "expo-notifications";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -15,6 +16,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+});
 
 const Page = () => {
   const { id: locationId, taskId } = useLocalSearchParams();
@@ -34,7 +44,7 @@ const Page = () => {
     if (task) {
       setTitle(task.title);
       setDescription(task.description);
-      setIsUrgent(task.isUrgent);
+      setIsUrgent(Boolean(task.isUrgent));
       setImageUri(task.imageUri);
     }
   }, [task]);
@@ -67,6 +77,7 @@ const Page = () => {
 
     if (isUrgent) {
       // Handle urgent task
+      await scheduleNotification(newTaskId, title);
     }
     router.back();
   };
@@ -106,10 +117,26 @@ const Page = () => {
     }
   };
 
+  const scheduleNotification = async (taskId: number, title: string) => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: `Urgent Task Reminder: ${title}`,
+        body: "Don't forget to check your task!",
+        data: { taskId, locationId },
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: 2,
+      },
+    });
+  };
+
   useEffect(() => {
     if (taskId) {
       loadTaskData();
     }
+
+    Notifications.requestPermissionsAsync();
   }, [loadTaskData, taskId]);
 
   return (

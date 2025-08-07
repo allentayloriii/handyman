@@ -5,14 +5,18 @@
         "backgroundColor": "#ffffff",
         "foregroundImage": "./assets/images/adaptive-icon.png"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "experiments": {
       "typedRoutes": true
     },
     "icon": "./assets/images/icon.png",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.soundtrksamurai.handyman"
     },
     "name": "handyman",
     "newArchEnabled": true,
